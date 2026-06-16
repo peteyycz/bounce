@@ -1,0 +1,36 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/">
+    <file>qml/main.qml</file>
+
+    <file>qml/Theme/qmldir</file>
+    <file>qml/Theme/Theme.qml</file>
+
+    <file>qml/Common/qmldir</file>
+    <file>qml/Common/GlassSurface.qml</file>
+
+    <file>qml/Mail/qmldir</file>
+    <file>qml/Mail/MailWindow.qml</file>
+    <file>qml/Mail/Sidebar.qml</file>
+    <file>qml/Mail/NavItem.qml</file>
+    <file>qml/Mail/MessageList.qml</file>
+    <file>qml/Mail/MessageRow.qml</file>
+    <file>qml/Mail/ReadingPane.qml</file>
+    <file>qml/Mail/ThreadMessage.qml</file>
+    <file>qml/Mail/Compose.qml</file>
+    <file>qml/Mail/Avatar.qml</file>
+    <file>qml/Mail/Chip.qml</file>
+    <file>qml/Mail/Icon.qml</file>
+    <file>qml/Mail/IconButton.qml</file>
+    <file>qml/Mail/MockData.qml</file>
+
+    <file>qml/Services/qmldir</file>
+    <file>qml/Services/Session.qml</file>
+
+    <file>qml/Auth/qmldir</file>
+    <file>qml/Auth/AuthScreen.qml</file>
+    <file>qml/Auth/LoadingScreen.qml</file>
+
+    <file>qml/assets/wallpaper.jpg</file>
+  </qresource>
+</RCC>

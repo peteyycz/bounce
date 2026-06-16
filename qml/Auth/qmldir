@@ -1,0 +1,3 @@
+module Auth
+AuthScreen 1.0 AuthScreen.qml
+LoadingScreen 1.0 LoadingScreen.qml

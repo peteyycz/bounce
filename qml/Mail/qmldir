@@ -1,0 +1,14 @@
+module Mail
+singleton MockData 1.0 MockData.qml
+MailWindow 1.0 MailWindow.qml
+Sidebar 1.0 Sidebar.qml
+NavItem 1.0 NavItem.qml
+MessageList 1.0 MessageList.qml
+MessageRow 1.0 MessageRow.qml
+ReadingPane 1.0 ReadingPane.qml
+ThreadMessage 1.0 ThreadMessage.qml
+Compose 1.0 Compose.qml
+Avatar 1.0 Avatar.qml
+Chip 1.0 Chip.qml
+Icon 1.0 Icon.qml
+IconButton 1.0 IconButton.qml
