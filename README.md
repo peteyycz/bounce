@@ -28,6 +28,26 @@ build, no nag screen, no license key. Paid official builds (above)
 are how the project earns money once they ship; donations are how
 self-builders say thanks.
 
+## HTML email
+
+HTML bodies render in a sandboxed `WebEngineView` (Chromium under the
+hood). Locked down to keep tracking and exploitation in check:
+
+- **JavaScript off.**
+- **Images autoload.** Convenient, but it means trackers in marketing
+  emails see your opens — a per-message "Block images" toggle will land
+  later for privacy-conscious senders.
+- **No file:// or remote local-content access**, no plugins, no
+  insecure mixed content.
+- **Link clicks open in the system browser**, not in the embedded view.
+
+`text/plain` is preferred when present; HTML is used only when the
+email has no plain-text alternative or when we want fidelity.
+
+Heads up: QtWebEngine adds ~150 MB to the binary (Chromium). That's
+unavoidable for real-world email rendering — `QTextDocument`'s HTML
+subset can't handle modern marketing emails.
+
 ## Compositor / blur
 
 The window is transparent on any compositor with alpha support — i.e.
@@ -48,7 +68,8 @@ option on Wayland — apps can't read other windows' pixels.
 
 ## Stack
 
-- **Qt 6** (Quick, Network, NetworkAuth, Keychain) — UI + HTTP + OAuth.
+- **Qt 6** (Quick, Network, NetworkAuth, Keychain, WebEngine) — UI + HTTP
+  + OAuth + sandboxed HTML email rendering.
 - **QML** for all UI. C++ is kept minimal — only what isn't reachable
   from QML
 - **CMake + Ninja** for the build.

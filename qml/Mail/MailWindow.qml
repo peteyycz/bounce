@@ -4,10 +4,13 @@ import Common 1.0
 import Theme 1.0
 import Services 1.0
 
-// The three-pane mail UI sitting inside a single glass panel.
+// Two-pane mail UI sitting inside a single glass panel. The right pane
+// flips between the message list and a thread view when a row is opened.
 Item {
     id: root
     property int activeRow: -1
+    readonly property bool viewingThread: activeRow >= 0
+                                       && activeRow < (Inbox.messages?.length ?? 0)
 
     GlassSurface {
         anchors.fill: parent
@@ -26,13 +29,36 @@ Item {
 
             Rectangle { Layout.preferredWidth: 1; Layout.fillHeight: true; color: Theme.hairline }
 
-            MessageList {
-                id: list
+            // Loader swaps inbox <-> thread view in place.
+            Loader {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                model_: Inbox.messages
-                currentIndex: root.activeRow
-                onRowClicked: (index) => root.activeRow = index
+                sourceComponent: root.viewingThread ? threadComp : listComp
+
+                Component {
+                    id: listComp
+                    MessageList {
+                        model_: Inbox.messages
+                        currentIndex: -1
+                        onRowClicked: (index) => {
+                            root.activeRow = index;
+                            Inbox.openThread(Inbox.messages[index].threadId);
+                        }
+                    }
+                }
+
+                Component {
+                    id: threadComp
+                    ThreadView {
+                        msg:    Inbox.messages[root.activeRow]
+                        thread: Inbox.currentThread
+                        loading: Inbox.threadLoading
+                        onBack: {
+                            root.activeRow = -1;
+                            Inbox.closeThread();
+                        }
+                    }
+                }
             }
         }
     }

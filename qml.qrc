@@ -8,6 +8,7 @@
 
     <file>qml/Common/qmldir</file>
     <file>qml/Common/GlassSurface.qml</file>
+    <file>qml/Common/FastWheel.qml</file>
 
     <file>qml/Mail/qmldir</file>
     <file>qml/Mail/MailWindow.qml</file>
@@ -17,6 +18,7 @@
     <file>qml/Mail/MessageRow.qml</file>
     <file>qml/Mail/ReadingPane.qml</file>
     <file>qml/Mail/ThreadMessage.qml</file>
+    <file>qml/Mail/ThreadView.qml</file>
     <file>qml/Mail/Compose.qml</file>
     <file>qml/Mail/Avatar.qml</file>
     <file>qml/Mail/Chip.qml</file>

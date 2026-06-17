@@ -6,6 +6,7 @@
 #include <QQmlError>
 #include <QObject>
 #include <QSurfaceFormat>
+#include <QtWebEngineQuick>
 #include <stdio.h>
 
 int main(int argc, char *argv[])
@@ -15,6 +16,9 @@ int main(int argc, char *argv[])
     QSurfaceFormat fmt;
     fmt.setAlphaBufferSize(8);
     QSurfaceFormat::setDefaultFormat(fmt);
+
+    // Must happen before QGuiApplication so Chromium can wire up GL/IPC bits.
+    QtWebEngineQuick::initialize();
 
     QGuiApplication app(argc, argv);
     app.setOrganizationName("bounce");

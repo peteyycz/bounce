@@ -19,6 +19,8 @@ class GmailService : public QObject
     Q_PROPERTY(QVariantList messages READ messages NOTIFY messagesChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(QString error READ error NOTIFY errorChanged)
+    Q_PROPERTY(QVariantList currentThread READ currentThread NOTIFY currentThreadChanged)
+    Q_PROPERTY(bool threadLoading READ threadLoading NOTIFY threadLoadingChanged)
 
 public:
     explicit GmailService(GoogleAuth *auth, QObject *parent = nullptr);
@@ -26,20 +28,28 @@ public:
     QVariantList messages() const { return m_messages; }
     bool loading() const { return m_loading; }
     QString error() const { return m_error; }
+    QVariantList currentThread() const { return m_currentThread; }
+    bool threadLoading() const { return m_threadLoading; }
 
     Q_INVOKABLE void fetchInbox();
+    Q_INVOKABLE void fetchThread(const QString &threadId);
+    Q_INVOKABLE void clearThread();
 
 signals:
     void messagesChanged();
     void loadingChanged();
     void errorChanged();
+    void currentThreadChanged();
+    void threadLoadingChanged();
 
 private:
     void fetchMessageDetail(const QString &id);
     QVariantMap parseMessage(const QJsonObject &m) const;
+    QVariantMap parseThreadMessage(const QJsonObject &m, bool isLast) const;
 
     void setLoading(bool v);
     void setError(const QString &e);
+    void setThreadLoading(bool v);
 
     GoogleAuth *m_auth = nullptr;
     QNetworkAccessManager m_nam;
@@ -48,7 +58,10 @@ private:
     bool m_loading = false;
     QString m_error;
 
-    // In-flight batch state.
+    QVariantList m_currentThread;
+    bool m_threadLoading = false;
+
+    // In-flight batch state for the inbox list.
     QStringList m_orderedIds;
     QHash<QString, QVariantMap> m_collected;
     int m_pending = 0;

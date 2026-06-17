@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Network NetworkAuth)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Network NetworkAuth WebEngineQuick)
 find_package(Qt6Keychain CONFIG REQUIRED)
 
 # ---------- OAuth credentials baked at build time ----------
@@ -54,7 +54,9 @@ add_executable(bounce
 
 target_include_directories(bounce PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/generated")
 
-target_link_libraries(bounce PRIVATE Qt6::Quick Qt6::Network Qt6::NetworkAuth qt6keychain)
+target_link_libraries(bounce PRIVATE
+    Qt6::Quick Qt6::Network Qt6::NetworkAuth Qt6::WebEngineQuick
+    qt6keychain)
 
 # ---------- clangd workaround ----------
 # CMake learns the gcc wrapper's NIX_CFLAGS_COMPILE-injected paths (Qt,

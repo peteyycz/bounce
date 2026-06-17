@@ -17,6 +17,7 @@
           qtdeclarative
           qt5compat
           qtnetworkauth
+          qtwebengine
         ] ++ [ pkgs.qt6Packages.qtkeychain ];
       in
       {

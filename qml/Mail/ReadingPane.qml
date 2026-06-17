@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Common 1.0
 import Theme 1.0
 
 // Right pane: action toolbar + thread.
@@ -80,6 +81,8 @@ Item {
         Item {
             implicitWidth: scroll.width
             implicitHeight: col.implicitHeight + 60
+
+            FastWheel { flickable: scroll.contentItem }
 
             Column {
                 id: col

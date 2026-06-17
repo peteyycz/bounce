@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Common 1.0
 import Theme 1.0
 
 // Middle pane: search + Inbox header + scrollable list.
@@ -119,6 +120,8 @@ Item {
             active: root.currentIndex === index
             onClicked: root.rowClicked(index)
         }
+
+        FastWheel { flickable: list }
     }
 
     // empty-state placeholder
