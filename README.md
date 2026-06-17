@@ -28,6 +28,24 @@ build, no nag screen, no license key. Paid official builds (above)
 are how the project earns money once they ship; donations are how
 self-builders say thanks.
 
+## Compositor / blur
+
+The window is transparent on any compositor with alpha support — i.e.
+all modern Wayland sessions and X11 with a compositor running.
+
+The *frosted-glass* look (translucent panel **blurred** over what's
+behind it) is rendered by the compositor, not by bounce. Compositors
+that do per-window blur of transparent regions:
+
+- **Hyprland** — `decoration { blur { enabled = true } }`
+- **KDE KWin** — built-in Blur effect, optionally a window rule for bounce
+- **Wayfire** — blur plugin
+
+On compositors without blur (GNOME / sway / niri / river) the window
+still goes see-through; you'll just see whatever's behind it sharply.
+Functional, just a different aesthetic. Client-side blur isn't an
+option on Wayland — apps can't read other windows' pixels.
+
 ## Stack
 
 - **Qt 6** (Quick, Network, NetworkAuth, Keychain) — UI + HTTP + OAuth.
