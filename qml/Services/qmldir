@@ -1,2 +1,3 @@
 module Services
 singleton Session 1.0 Session.qml
+singleton Inbox 1.0 Inbox.qml

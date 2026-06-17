@@ -63,6 +63,24 @@ secret-tool search service bounce
 secret-tool clear  service bounce key google_refresh_token   # nuke
 ```
 
+**Scope change ⇒ re-auth.** When we add a new scope (e.g. when
+`gmail.readonly` was first wired), a stored refresh token still grants
+only the old scopes. Calls return 403 with `insufficient_scope`. Force a
+fresh sign-in: `secret-tool clear service bounce key google_refresh_token`
+then launch the app and click Sign in.
+
+## Mail data flow
+
+`GmailService` (C++) holds a `QNetworkAccessManager` and watches
+`GoogleAuth::authenticatedChanged`. On sign-in it calls
+`users.messages.list?labelIds=INBOX&maxResults=50`, then issues parallel
+`messages.get?format=metadata` GETs per ID, collects them in arrival
+order, sorts back into the list order, and exposes them as `messages`.
+
+Wired to QML as `Bounce.Mail.GmailService` (C++ singleton) and exposed
+via the thin façade `Services.Inbox` so `MessageList` just binds
+`model_: Inbox.messages`.
+
 `QML_DISABLE_DISK_CACHE=1` is set programmatically in `main.cpp` during
 development so QML edits always pick up fresh — drop that line before
 shipping a release build.

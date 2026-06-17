@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Common 1.0
 import Theme 1.0
+import Services 1.0
 
 // The three-pane mail UI sitting inside a single glass panel.
 Item {
@@ -29,7 +30,7 @@ Item {
                 id: list
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                model_: []
+                model_: Inbox.messages
                 currentIndex: root.activeRow
                 onRowClicked: (index) => root.activeRow = index
             }

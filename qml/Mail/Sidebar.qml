@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import Theme 1.0
 import Services 1.0
@@ -49,8 +50,81 @@ Item {
         Icon {
             name: "chevrons-up-down"
             size: 16
-            color: Theme.textFaint
+            color: acctMa.containsMouse ? Theme.textDim : Theme.textFaint
             anchors.verticalCenter: parent.verticalCenter
+            Behavior on color { ColorAnimation { duration: 140 } }
+        }
+    }
+
+    MouseArea {
+        id: acctMa
+        anchors.fill: acct
+        hoverEnabled: true
+        cursorShape: Session.signedIn ? Qt.PointingHandCursor : Qt.ArrowCursor
+        onClicked: if (Session.signedIn) accountMenu.open()
+    }
+
+    // Account dropdown — for now just Sign out; switch-account / settings
+    // will live here later.
+    Popup {
+        id: accountMenu
+        x: 18
+        y: acct.y + acct.height + 6
+        width: root.width - 36
+        padding: 6
+        modal: false
+        focus: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+        background: Rectangle {
+            radius: Theme.rMd
+            color: Theme.bgSolid
+            border.color: Theme.border
+            border.width: 1
+        }
+
+        contentItem: Column {
+            spacing: 0
+
+            Rectangle {
+                width: parent.width
+                height: 34
+                radius: Theme.rSm
+                color: signOutMa.containsMouse ? Theme.fill : "transparent"
+                Behavior on color { ColorAnimation { duration: 140 } }
+
+                Row {
+                    anchors.fill: parent
+                    anchors.leftMargin: 10
+                    anchors.rightMargin: 10
+                    spacing: 10
+
+                    Icon {
+                        name: "log-out"
+                        size: 15
+                        color: Theme.textDim
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    Text {
+                        text: "Sign out"
+                        color: Theme.text
+                        font.family: Theme.fonts.sans
+                        font.pixelSize: 13
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                MouseArea {
+                    id: signOutMa
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        accountMenu.close();
+                        Session.signOut();
+                    }
+                }
+            }
         }
     }
 

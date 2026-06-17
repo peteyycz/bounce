@@ -1,4 +1,5 @@
 #include "GoogleAuth.h"
+#include "GmailService.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -21,8 +22,10 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    auto *auth = new GoogleAuth(&app);
-    qmlRegisterSingletonInstance("Bounce.Auth", 1, 0, "GoogleAuth", auth);
+    auto *auth  = new GoogleAuth(&app);
+    auto *gmail = new GmailService(auth, &app);
+    qmlRegisterSingletonInstance("Bounce.Auth", 1, 0, "GoogleAuth",   auth);
+    qmlRegisterSingletonInstance("Bounce.Mail", 1, 0, "GmailService", gmail);
 
     QObject::connect(&engine, &QQmlApplicationEngine::warnings,
                      [](const QList<QQmlError> &warnings) {

@@ -30,6 +30,9 @@ public:
     Q_INVOKABLE void signIn();
     Q_INVOKABLE void signOut();
 
+    // For other in-process services (e.g. GmailService).
+    QString accessToken() const { return m_oauth.token(); }
+
 signals:
     void authenticatedChanged();
     void restoringChanged();

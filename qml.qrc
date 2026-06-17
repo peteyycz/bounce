@@ -26,6 +26,7 @@
 
     <file>qml/Services/qmldir</file>
     <file>qml/Services/Session.qml</file>
+    <file>qml/Services/Inbox.qml</file>
 
     <file>qml/Auth/qmldir</file>
     <file>qml/Auth/AuthScreen.qml</file>

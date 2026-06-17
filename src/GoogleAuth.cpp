@@ -42,9 +42,12 @@ GoogleAuth::GoogleAuth(QObject *parent) : QObject(parent)
     m_oauth.setTokenUrl(QUrl(QString::fromLatin1(kTokenUrl)));
     m_oauth.setClientIdentifier(clientId);
     m_oauth.setClientIdentifierSharedKey(clientSecret);
-    m_oauth.setRequestedScopeTokens({ QByteArray("openid"),
-                                      QByteArray("email"),
-                                      QByteArray("profile") });
+    m_oauth.setRequestedScopeTokens({
+        QByteArray("openid"),
+        QByteArray("email"),
+        QByteArray("profile"),
+        QByteArray("https://www.googleapis.com/auth/gmail.readonly")
+    });
 
     // PKCE — required for installed apps per RFC 8252.
     m_oauth.setPkceMethod(QOAuth2AuthorizationCodeFlow::PkceMethod::S256);

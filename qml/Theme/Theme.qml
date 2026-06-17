@@ -131,6 +131,7 @@ QtObject {
             "link": 0xf0c1,
             "minus": 0xf068,
             "maximize-2": 0xf065,
-            "x": 0xf00d
+            "x": 0xf00d,
+            "log-out": 0xf08b
         })
 }
